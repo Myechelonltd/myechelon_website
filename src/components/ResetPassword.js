@@ -5,6 +5,7 @@ import { MdLockOutline } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { axiosRequest } from '../api'
+import { Button, Spinner } from 'react-bootstrap';
 import Notify from '../functions/Notify'
 
 const ResetPassword = () => {
@@ -104,13 +105,25 @@ const ResetPassword = () => {
 
                                     <div className="my-6 text-center">
                                         <Link to="/login">
-                                            <button
-                                                className="w-full px-2 py-2 font-bold text-gray-900 border bg-transparent rounded-full focus:outline-none"
-                                                type="button"
-                                                onClick={handlResetPassword}
-                                            >
-                                                Confirm
-                                            </button>
+                                            {loading ? (
+                                                <Button variant="dark" disabled className='w-[40%] md:w-1/2'>
+                                                    <Spinner
+                                                        as="span"
+                                                        variant="light"
+                                                        size="sm"
+                                                        role="status"
+                                                        aria-hidden="false"
+                                                        animation="border" />
+                                                    Processing...
+                                                </Button>
+                                            ) : (
+                                                <button
+                                                    className="w-full px-2 py-2 font-bold text-gray-900 border bg-transparent rounded-full focus:outline-none"
+                                                    onClick={handlResetPassword}
+                                                >
+                                                    Confirm
+                                                </button>
+                                            )}
                                         </Link>
                                     </div>
                                 </form>

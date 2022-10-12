@@ -53,7 +53,7 @@ const Team = () => {
                     <img src={Divider} alt="divider" width="76" />
                 </span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:px-40 sx:px-16 px-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:px-[22%] sm:px-16 px-14">
                 {loading && <SpinnerLoading />}
                 {Data.map((item) => (
                     <div className="max-w-xs rounded overflow-hidden bg-clip-border bg-transparent border shadow-xl p-4" key={item._id}>

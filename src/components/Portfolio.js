@@ -34,6 +34,7 @@ const Portfolio = () => {
     useEffect(() => {
         GetPortifolio();
     }, [])
+    
     return (
         <>
             <ToastContainer
@@ -57,15 +58,17 @@ const Portfolio = () => {
                                 <h2 className="mr-auto heading-h2"><span className="gsap-reveal text-white font-bold font-lexend">Portfolio</span></h2>
                             </Zoom>
                         </div>
-                        <div id="posts" className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-3 md:gap-0">
-                            {loading && <SpinnerLoading/>}
-                            {Data.slice(0, 10).map((item) => (   
+                        <div id="posts" className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 gap-3 md:gap-0">
+                            {loading && <SpinnerLoading />}
+                            {Data.slice(0, 10).map((item) => (
                                 <div className="item web branding isotope-mb-2" key={item._id}>
                                     <div className="portfolio-item ajax-load-page isotope-item gsap-reveal-img" data-id="1">
                                         <div className="overlay">
                                             <span className="wrap-icon icon-link2"></span>
                                             <div className="portfolio-item-content">
-                                                <a href={item.link} className='cursor-pointer'><h3>{item.title}</h3></a>
+                                                <a href={item.link} target="_blank" rel="noreferrer" className='cursor-pointer'>
+                                                    <h3>{item.title}</h3>
+                                                </a>
                                                 <p>{item.desc}</p>
                                             </div>
                                         </div>

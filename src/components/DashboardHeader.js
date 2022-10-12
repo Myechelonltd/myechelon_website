@@ -7,7 +7,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const DashboardHeader = () => {
     const navigate = useNavigate()
-    const [userId, setUserId]= useState('')
+    const [userId, setUserId] = useState('')
     const [open, setOpen] = useState(false)
     const handleDropDown = () => setOpen(!open);
     const [nav, setNav] = useState(false);
@@ -17,9 +17,11 @@ const DashboardHeader = () => {
         removeUserSession();
         navigate('/login');
     }
-const handleChangePassword = ()=>{
-    setUserId(user[0]._id)
-}
+
+    const handleChangePassword = () => {
+        setUserId(user[0]._id)
+    }
+
     return (
         <div className="w-screen h-[8vh] z-10  bg-[#191919] fixed border-b">
             <div className="px-3 flex items-center w-full h-full justify-between">
@@ -50,10 +52,10 @@ const handleChangePassword = ()=>{
                     src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"
                     alt="avatar"
                 />)}
-                <div className={!open ? 'hidden' : 'w-58 mt-48 rounded-lg shadow border absolute bg-[#191919] justify-end right-0'}>
+                <div className={!open ? 'hidden' : 'w-58 mt-48 rounded-lg shadow border absolute bg-[#191919] justify-end right-0'} onClick={handleDropDown}>
                     <ul className="space-y-3">
                         <li className="font-medium">
-                            <a href="#m" className="flex text-white items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                            <a href="#link" className="flex text-white items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700">
                                 <div className="mr-3">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 </div>
@@ -61,7 +63,8 @@ const handleChangePassword = ()=>{
                             </a>
                         </li>
                         <li className="font-medium">
-                            <NavLink to={`change/password/${userId}`} className="flex text-white items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700"
+                            {/* <NavLink to={`change/password/${userId}`} className="flex text-white items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700" */}
+                            <NavLink to="#link" className="flex text-white items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700"
                             onClick={handleChangePassword}
                             >
                                 <div className="mr-3">
@@ -69,7 +72,7 @@ const handleChangePassword = ()=>{
                                 </div>
                                 Change Password
                             </NavLink>
-                          
+
                         </li>
                         <hr className="text-white" />
                         <li className="font-medium">

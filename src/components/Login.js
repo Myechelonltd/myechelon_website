@@ -7,15 +7,15 @@ import { FaRegEnvelope, FaRegEye } from 'react-icons/fa';
 import { axiosRequest } from '../api/index'
 import { ToastContainer } from "react-toastify";
 import { useNavigate, NavLink } from 'react-router-dom';
-import Notify from "../functions/Notify";
 import { setUserSession } from '../Utils/Common';
+import { Button, Spinner } from 'react-bootstrap';
+import Notify from "../functions/Notify";
 import Logo from '../assets/image/myechelon-logo.png'
 
 const Login_URL = 'team/login'
 
 const Login = () => {
     const [passwordShown, setPasswordShown] = useState(false);
-    const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -27,20 +27,22 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        setError(null)
         setLoading(true)
         await axiosRequest.post(Login_URL, {
             email: email,
-            password: password
+            password: password,
         }).then(res => {
             setLoading(false)
-            Notify(res.message, "success");
+            const result = res.data;
+            const { status, message } = result
+            Notify(message, "success");
             setUserSession(res.data.token, res.data.user)
             navigate("/dashboard")
         })
             .catch((error) => {
                 setLoading(false)
-                console.log(error)
+                const errMessage = error.response.data.message
+                Notify(errMessage, "error");
             })
     }
 
@@ -72,7 +74,7 @@ const Login = () => {
                                 Sign in to your account
                             </p>
                             <div className="flex flex-col items-center">
-                                <form onClick={handleLogin}>
+                                <form>
                                     <div className="bg-gray-100 w-64 p-2 flex rounded items-center mb-2  ">
                                         <FaRegEnvelope className="text-gray-400 mr-2" />
                                         <input
@@ -83,7 +85,6 @@ const Login = () => {
                                             onChange={(e) => setEmail(e.target.value)}
                                         />
                                     </div>
-                                    {error && <div className='text-red-500 text-left'>{error}</div>}
                                     <div className="bg-gray-100 w-64 p-2 flex items-center rounded mb-2  ">
                                         <MdLockOutline className="text-gray-400 mr-2 " />
                                         <input
@@ -101,7 +102,6 @@ const Login = () => {
                                             )}
                                         </div>
                                     </div>
-                                    {error && <div className='text-red-500 text-left -mb-8'>{error}</div>}
                                     <div className="flex w-64 justify-between rounded mb-5 mt-5">
                                         <Link
                                             to="/forget"
@@ -111,14 +111,27 @@ const Login = () => {
                                         </Link>
                                     </div>
                                     <div className="w-full justify-center">
-                                        <input
-                                            type="submit"
-                                            className="border-2 w-1/2 py-2 inline-block rounded-full md:font-semibold sm:mt-2 sm:font-medium text-white"
-                                            value={loading ? "loading..." : "Log In"}
-                                            disabled={loading}
-                                        >
-                                        </input>
+                                        {loading ? (
+                                            <Button variant="dark" disabled className='w-[40%] md:w-1/2'>
+                                                <Spinner
+                                                    as="span"
+                                                    variant="light"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="false"
+                                                    animation="border" />
+                                                Processing...
+                                            </Button>
+                                        ) : (
+                                            <button
+                                                className='py-2 w-[40%] md:w-1/3 rounded  bg-gray-300 hover:bg-transparent border border-gray-800 hover:text-black hover:bg-white focus:ring-4 focus:outline-none'
+                                                onClick={handleLogin}
+                                            >
+                                                Log In
+                                            </button>
+                                        )}
                                     </div>
+
                                 </form>
                             </div>
                         </div>

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { FaArrowCircleLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { axiosRequest } from '../api'
-import Notify from '../functions/Notify'
 import { ToastContainer } from "react-toastify";
+import { Button, Spinner } from 'react-bootstrap';
+import Notify from '../functions/Notify'
 
 const ForgetPassword = () => {
     let [loading, setLoading] = useState(false);
@@ -26,6 +27,8 @@ const ForgetPassword = () => {
                 else {
                     setEmail(" ");
                     Notify(result.message, "success");
+                    setUserSession(res.data.token, res.data.user)
+                    navigate("/dashboard")
                 }
             })
             .catch(error => {
@@ -79,13 +82,25 @@ const ForgetPassword = () => {
                                         />
                                     </div>
                                     <div className="mb-6 text-center">
-                                        <button
-                                            className="w-full px-2 py-2 font-bold text-gray-900 border bg-transparent rounded-full focus:outline-none"
-                                            type="button"
-                                            onClick={handleSubmite}
-                                        >
-                                            Reset Password
-                                        </button>
+                                        {loading ? (
+                                            <Button variant="dark" disabled className='w-[40%] md:w-1/2'>
+                                                <Spinner
+                                                    as="span"
+                                                    variant="light"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="false"
+                                                    animation="border" />
+                                                Processing...
+                                            </Button>
+                                        ) : (
+                                            <button
+                                                className="w-full px-2 py-2 font-bold text-gray-900 border bg-transparent rounded-full focus:outline-none"
+                                                onClick={handleSubmite}
+                                            >
+                                                Reset Password
+                                            </button>
+                                        )}
                                     </div>
                                     <hr className="mb-6 border-t" />
                                     <div className="text-center">

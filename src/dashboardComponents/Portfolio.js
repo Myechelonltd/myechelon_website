@@ -21,12 +21,14 @@ const Portfolio = () => {
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
+    link: "",
     image: ""
   })
 
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
   const [image, setImage] = useState("")
+  const [link, setLink] = useState("")
 
   const removeModel = () => {
     let newState = !createPortfolioModel;
@@ -79,7 +81,7 @@ const Portfolio = () => {
       setLoading(false)
       setImage(response.data.secure_url)
       const protifolioImage = response.data.secure_url
-      const Credentials = { title, desc, image: protifolioImage }
+      const Credentials = { title, desc, link, image: protifolioImage }
       setLoading(true)
       axiosRequest.post(url, Credentials)
         .then(response => {
@@ -220,6 +222,18 @@ const Portfolio = () => {
               </div>
               <div className="input my-3 h-9 ">
                 <div className="grouped-input flex items-center h-full w-full rounded-md">
+                  <textarea
+                    type="text"
+                    name="link"
+                    value={link}
+                    onChange={(e) => setLink(e.target.value)}
+                    className="border border-gray-300 py-2 pb-10 rounded outline-none px-2 font-sans text-xs w-full"
+                    placeholder="https://"
+                  />
+                </div>
+              </div>
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input flex items-center h-full w-full rounded-md">
                   <input
                     type="file"
                     onChange={(e) => {
@@ -343,6 +357,21 @@ const Portfolio = () => {
               </div>
               <div className="input my-3 h-9 ">
                 <div className="grouped-input flex items-center h-full w-full rounded-md">
+                  <textarea
+                    type="text"
+                    name="link"
+                    defaultValue={formData.link}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      link: e.target.value
+                    })}
+                    className="border border-gray-300 py-2 pb-10 rounded outline-none px-2 font-sans text-xs w-full"
+                    placeholder="Link"
+                  />
+                </div>
+              </div>
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input flex items-center h-full w-full rounded-md">
                   <input
                     type="file"
                     name="image"
@@ -402,14 +431,15 @@ const Portfolio = () => {
             </div>
             <div>
               <div className="flex flex-wrap ml-0 xl:ml-10 overflow-x-auto">
-              {loading && <SpinnerLoading/>}
+                {loading && <SpinnerLoading />}
                 {Data.map((item) => (
                   <div className="w-full sm:w-[40%] md:w-[30%] xl:w-2/5 bg-white rounded-lg border border-gray-200 md:mx-2 xl:mr-14 mx-2 mb-4 shadow-md" key={item._id}>
                     <div className="flex flex-col items-left pb-6">
                       <img className="mb-3 rounded-lg shadow-lg h-[200px] object-cover sm:h-[150px] xl:h-[300px]" src={item.image} alt="Bonniimage" />
-                      <h6 className="py-2 text-xl  font-bold font-sans px-3">{item.title}</h6>
+                      <a href={item.link} target="_blank" rel="noreferrer">
+                        <h6 className="py-2 text-xl  font-bold font-sans px-3">{item.title}</h6>
+                      </a>
                       <span className="text-sm text-gray-800 text-left px-3 font-bold font-sans">{item.desc}</span>
-
                       <div className='px-2'>
                         {user[0]?.isAdmin ? (
                           <div className="flex mt-4 justify-between space-x-3 lg:mt-6">
