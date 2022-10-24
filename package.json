@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "start": "node server.js",
-    "postinstall":"webpack -p",
+    "postinstall": "webpack -p",
     "build": "webpack --config ./webpack.config.js --mode='production'"
   },
   "repository": {
@@ -42,7 +42,6 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.2",
-    "react-gsap": "^3.2.1",
     "react-hook-form": "^7.35.0",
     "react-icons": "^4.4.0",
     "react-reveal": "^1.2.2",
