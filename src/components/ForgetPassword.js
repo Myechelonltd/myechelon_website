@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { FaArrowCircleLeft } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { axiosRequest } from '../api'
 import { ToastContainer } from "react-toastify";
 import { Button, Spinner } from 'react-bootstrap';
 import Notify from '../functions/Notify'
+import { setUserSession } from '../Utils/Common';
 
 const ForgetPassword = () => {
     let [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('')
+    const navigate = useNavigate()
 
     const handleSubmite = (e) => {
         e.preventDefault()
@@ -27,8 +29,8 @@ const ForgetPassword = () => {
                 else {
                     setEmail(" ");
                     Notify(result.message, "success");
-                    setUserSession(res.data.token, res.data.user)
-                    navigate("/dashboard")
+                    // setUserSession(response.data.token, response.data.user)
+                    // navigate("/dashboard")
                 }
             })
             .catch(error => {
