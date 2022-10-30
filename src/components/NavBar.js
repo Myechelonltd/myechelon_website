@@ -10,7 +10,7 @@ const NavBar = () => {
             <span className="nav-logo px-3 sm:hidden"> <a href="#home-section">
                 <img src={Logo} className="mr-3 h-6 sm:h-12" alt="Logo" />
             </a></span>
-            <div className={`pl-0 md:pl-[7%]  lg:pl-[18%] xl:pl-[25%] 2xl:pl-[30%] fixed z-50 bg-[#010000] w-full nav-items ${isOpen && "open"}`}>
+            <div className={`pl-0 md:pl-[7%]  lg:pl-[18%] xl:pl-[25%] 2xl:pl-[30%] fixed z-50 bg-[#010000] w-full nav-items mt-4 ${isOpen && "open"}`}>
                 <ul className="flex flex-col mt-4 sm:flex-row sm:space-x-8 sm:mt-0 md:text-sm sm:font-medium" onClick={handleClick}>
                     <li className="block py-2 pr-4 pl-3 text-lg text-white font-sans hover:text-gray-50 rounded sm:bg-transparent sm:p-0">
                         <a
