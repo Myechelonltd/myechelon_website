@@ -16,11 +16,11 @@ const Home = () => {
   return (
     <div className='bg-black'>
       <div className="unslate_co--site-inner overflow-x-hidden">
-        <div className="lines-wrap">
+        {/* <div className="lines-wrap">
           <div className="lines-inner">
             <div className="lines"></div>
           </div>
-        </div>
+        </div> */}
         <NavBar />
         <HomePage />
         <Portfolio />
